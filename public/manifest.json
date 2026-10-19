@@ -2,7 +2,7 @@
 	"manifest_version": 3,
 	"name": "SideDevTools - Privacy-First Developer Companion",
 	"version": "1.2.0",
-	"description": "100% offline & privacy-first developer sidebar for Chrome: TOTP Authenticator, AI Background Remover, AnyDoc Markdown, DateTime Parser, Passwords, Encoders, Formatters.",
+	"description": "Offline, privacy-first developer sidebar for Chrome: TOTP 2FA, AI BG remover, AnyDoc, converters, encoders, formatters & vault.",
 	"author": "rasyidly <rasyid@sekeco.id>",
 	"homepage_url": "https://github.com/rasyidly/sidedevtools",
 	"permissions": [
