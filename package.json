@@ -1,0 +1,48 @@
+{
+	"name": "sidedevtools",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc -b && vite build",
+		"lint": "oxlint",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"@fontsource/geist-mono": "^5.3.0",
+		"@fontsource/geist-sans": "^5.3.0",
+		"@imgly/background-removal": "^1.7.0",
+		"@paralleldrive/cuid2": "^3.3.0",
+		"@solar-icons/react": "^2.3.3",
+		"clsx": "^2.1.1",
+		"jsqr": "^1.4.0",
+		"jszip": "^3.10.2",
+		"lucide-react": "^1.59.0",
+		"nanoid": "^6.0.2",
+		"onnxruntime-web": "1.21.0",
+		"otpauth": "^9.5.2",
+		"qrcode": "^1.5.4",
+		"react": "^19.2.8",
+		"react-dom": "^19.2.8",
+		"solar-icon-set": "^2.0.1",
+		"tailwind-merge": "^3.7.0",
+		"ulid": "^3.0.2",
+		"uuid": "^14.0.3"
+	},
+	"devDependencies": {
+		"@tailwindcss/vite": "^4.3.3",
+		"@types/chrome": "^0.3.5",
+		"@types/jszip": "^3.4.1",
+		"@types/node": "^24.13.3",
+		"@types/qrcode": "^1.5.6",
+		"@types/react": "^19.2.18",
+		"@types/react-dom": "^19.2.7",
+		"@types/uuid": "^11.0.0",
+		"@vitejs/plugin-react": "^6.1.1",
+		"oxlint": "^1.81.0",
+		"tailwindcss": "^4.3.3",
+		"typescript": "~6.0.2",
+		"vite": "^8.3.0"
+	}
+}
