@@ -121,28 +121,28 @@ Visit `http://localhost:5173`.
 
 SideDevTools is made possible thanks to these open-source packages:
 
-| Package                                     | Version       | Purpose                                           |
-| :------------------------------------------ | :------------ | :------------------------------------------------ |
-| **react** / **react-dom**                   | 19.2.8        | User interface components and DOM rendering       |
-| **typescript**                              | 6.0.2         | Type-safe application architecture                |
-| **vite**                                    | 8.3.0         | Fast frontend build tool and dev server           |
-| **tailwindcss**                             | 4.3.3         | Utility-first styling engine                      |
-| **@fontsource/geist-sans** / **geist-mono** | 5.3.0         | Modern interface and monospace typography         |
-| **@solar-icons/react** / **solar-icon-set** | 2.3.3 / 2.0.1 | Interface icons                                   |
-| **lucide-react**                            | 1.59.0        | Auxiliary UI icons                                |
-| **@imgly/background-removal**               | 1.7.0         | In-browser machine learning background removal    |
-| **onnxruntime-web**                         | 1.21.0        | WebAssembly ML model inference runtime            |
-| **otpauth**                                 | 9.5.2         | TOTP / 2FA token generation and URI parsing       |
+| Package                                     | Version       | Purpose                                                                    |
+| :------------------------------------------ | :------------ | :------------------------------------------------------------------------- |
+| **react** / **react-dom**                   | 19.2.8        | User interface components and DOM rendering                                |
+| **typescript**                              | 6.0.2         | Type-safe application architecture                                         |
+| **vite**                                    | 8.3.0         | Fast frontend build tool and dev server                                    |
+| **tailwindcss**                             | 4.3.3         | Utility-first styling engine                                               |
+| **@fontsource/geist-sans** / **geist-mono** | 5.3.0         | Modern interface and monospace typography                                  |
+| **@solar-icons/react** / **solar-icon-set** | 2.3.3 / 2.0.1 | Interface icons                                                            |
+| **lucide-react**                            | 1.59.0        | Auxiliary UI icons                                                         |
+| **@imgly/background-removal**               | 1.7.0         | In-browser machine learning background removal                             |
+| **onnxruntime-web**                         | 1.21.0        | WebAssembly ML model inference runtime                                     |
+| **otpauth**                                 | 9.5.2         | TOTP / 2FA token generation and URI parsing                                |
 | **@faker-js/faker**                         | 10.6.0        | Seeded generated data and locales for the Form Filler `{{pattern}}` engine |
-| **qrcode**                                  | 1.5.4         | QR code rendering                                 |
-| **jsqr**                                    | 1.4.0         | QR code scanning from image canvas                |
-| **jszip**                                   | 3.10.2        | In-memory ZIP archive generation for icon bundles |
-| **uuid**                                    | 14.0.3        | RFC UUID v4 and v7 generation                     |
-| **ulid**                                    | 3.0.2         | Lexicographically sortable unique identifier      |
-| **nanoid**                                  | 6.0.2         | Compact URL-friendly random ID generation         |
-| **@paralleldrive/cuid2**                    | 3.3.0         | Collision-resistant secure distributed IDs        |
-| **clsx** / **tailwind-merge**               | 2.1.1 / 3.7.0 | Safe conditional CSS class merging                |
-| **oxlint**                                  | 1.81.0        | High-performance Rust-based linter                |
+| **qrcode**                                  | 1.5.4         | QR code rendering                                                          |
+| **jsqr**                                    | 1.4.0         | QR code scanning from image canvas                                         |
+| **jszip**                                   | 3.10.2        | In-memory ZIP archive generation for icon bundles                          |
+| **uuid**                                    | 14.0.3        | RFC UUID v4 and v7 generation                                              |
+| **ulid**                                    | 3.0.2         | Lexicographically sortable unique identifier                               |
+| **nanoid**                                  | 6.0.2         | Compact URL-friendly random ID generation                                  |
+| **@paralleldrive/cuid2**                    | 3.3.0         | Collision-resistant secure distributed IDs                                 |
+| **clsx** / **tailwind-merge**               | 2.1.1 / 3.7.0 | Safe conditional CSS class merging                                         |
+| **oxlint**                                  | 1.81.0        | High-performance Rust-based linter                                         |
 
 ---
 
@@ -162,6 +162,15 @@ The Form Filler is the only feature that touches web pages, and it is strictly o
 - It never runs automatically: nothing happens until you perform the configured modifier + double-click gesture (or press the buttons in the side panel).
 - It reads only the field you target (or the form you target), writing generated values locally, and can be paused per site.
 - Generated data comes from the bundled on-device faker engine — no network calls, ever.
+
+---
+
+## Changelog
+
+Release notes live in [changelog/](./changelog):
+
+- [v1.3.0](./changelog/v1.3.0.md) — Color & Palette Toolkit, QR & Barcode Reader, Regex Playground, Form Filler, CSP-safe background remover.
+- [v1.2.0](./changelog/v1.2.0.md) — first release with 13 offline developer tools.
 
 ---
 
