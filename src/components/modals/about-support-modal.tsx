@@ -188,7 +188,7 @@ export function AboutSupportModal({
 										SideDevTools
 									</span>
 									<span className="px-1.5 py-0.2 rounded-full text-[9px] bg-[#008060]/15 text-[#008060] dark:text-[#34d399] font-medium">
-										v1.2.0
+										v1.3.0
 									</span>
 								</div>
 								<span className="text-[10px] text-(--p-text-subdued)">
@@ -224,7 +224,7 @@ export function AboutSupportModal({
 							</span>
 							<kbd className="px-1.5 py-0.5 rounded-md bg-(--p-surface) border border-(--p-border) text-(--p-text) tabular-nums font-mono font-semibold flex items-center gap-px">
 								<span className="text-sm mb-px">⌘</span>
-								<span>+Shift+D / Ctrl+Shift+D</span>
+								<span>+Shift+S / Ctrl+Shift+S</span>
 							</kbd>
 						</div>
 

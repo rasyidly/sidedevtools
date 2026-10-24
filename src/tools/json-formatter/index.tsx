@@ -61,7 +61,7 @@ export function JsonFormatterView() {
 				{
 					app: "SideDevTools",
 					tagline: "Privacy-First Developer Companion",
-					version: "1.2.0",
+					version: "1.3.0",
 					author: {
 						name: "John Doe",
 						email: "john@example.dev",

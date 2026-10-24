@@ -1,4 +1,11 @@
-export type ToolCategory = 'all' | 'converters' | 'generators' | 'formatters' | 'web' | 'utilities'
+export type ToolCategory =
+	| 'all'
+	| 'converters'
+	| 'generators'
+	| 'formatters'
+	| 'web'
+	| 'design'
+	| 'utilities'
 
 export interface DevTool {
   id: string

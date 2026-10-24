@@ -15,9 +15,16 @@ import * as ortWebGpu from "onnxruntime-web/webgpu"
  *
  * Solution:
  * We intercept `env.wasm.wasmPaths` setter. Whenever @imgly sets wasmPaths with a blob .mjs URL,
- * we substitute it with the extension's local static .mjs file bundled in /onnxruntime-web/.
- * Chrome allows import("chrome-extension://<id>/onnxruntime-web/ort-wasm-simd-threaded.mjs")
- * because it is within the extension's own origin ('self').
+ * we substitute both the .mjs glue and the .wasm binary with the extension's local static files
+ * bundled in /onnxruntime-web/. Chrome allows
+ * import("chrome-extension://<id>/onnxruntime-web/ort-wasm-simd-threaded.mjs") because it is
+ * within the extension's own origin ('self').
+ *
+ * The .wasm must be swapped together with the .mjs. The wasm downloaded by @imgly from its CDN
+ * is built with a different Emscripten configuration than the onnxruntime-web package bundled
+ * here, so its exports do not match the local glue. Pairing a local .mjs with the CDN .wasm
+ * fails at instantiation with errors such as "H._a is not a function". Keeping both assets
+ * side-by-side guarantees that glue and binary come from the same onnxruntime-web build.
  *
  * Furthermore, we lock numThreads = 1 and proxy = false because Chrome extension side panels
  * do not run with crossOriginIsolated headers, which prevents SharedArrayBuffer pthreads.
@@ -64,21 +71,28 @@ function patchOrtEnv(env: any) {
 			},
 			set(val: any) {
 				if (val && typeof val === "object") {
+					// @imgly turns both the .mjs and .wasm into blob URLs, which hides the
+					// original filename. When the value is not a blob URL we can still
+					// detect the WebGPU (jsep) variant from the path.
 					const isWebGpu =
 						typeof val.mjs === "string" && val.mjs.includes("jsep")
-					const fileName = isWebGpu
-						? "onnxruntime-web/ort-wasm-simd-threaded.jsep.mjs"
-						: "onnxruntime-web/ort-wasm-simd-threaded.mjs"
+					const baseName = isWebGpu
+						? "ort-wasm-simd-threaded.jsep"
+						: "ort-wasm-simd-threaded"
 
-					// In Chrome extension, use chrome.runtime.getURL
-					const localMjsUrl =
-						typeof chrome !== "undefined" && chrome.runtime?.getURL
-							? chrome.runtime.getURL(fileName)
-							: fileName
+					const localUrl = (extension: string) => {
+						const relativePath = `onnxruntime-web/${baseName}.${extension}`
+						return typeof chrome !== "undefined" &&
+							chrome.runtime?.getURL
+							? chrome.runtime.getURL(relativePath)
+							: `/${relativePath}`
+					}
 
+					// Both files must come from the same onnxruntime-web build.
 					currentWasmPaths = {
 						...val,
-						mjs: localMjsUrl,
+						mjs: localUrl("mjs"),
+						wasm: localUrl("wasm"),
 					}
 				} else {
 					currentWasmPaths = val

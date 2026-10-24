@@ -1,4 +1,4 @@
-import jsQR from 'jsQR'
+import jsQR from 'jsqr'
 import * as OTPAuth from 'otpauth'
 
 export interface ParsedOtpAuth {
@@ -99,70 +99,15 @@ export async function scanQrFromImageBlob(blob: Blob): Promise<string | null> {
 }
 
 /**
- * Capture screen, window, or tab to scan for QR code
+ * Scan a QR code from a PNG data URL — used by the region capture flow and any
+ * canvas export.
  */
-export async function scanQrFromScreenCapture(): Promise<string | null> {
-  if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) {
-    throw new Error('Screen capture API is not supported in this browser environment.')
-  }
-
-  let stream: MediaStream | null = null
+export async function scanQrFromDataUrl(dataUrl: string): Promise<string | null> {
   try {
-    stream = await navigator.mediaDevices.getDisplayMedia({
-      video: {
-        displaySurface: 'monitor',
-      },
-      audio: false,
-    })
-
-    const track = stream.getVideoTracks()[0]
-    if (!track) {
-      throw new Error('No video track available from screen capture.')
-    }
-
-    // Capture frame using ImageCapture or Video element
-    const video = document.createElement('video')
-    video.playsInline = true
-    video.muted = true
-    video.srcObject = stream
-
-    await new Promise<void>((resolve, reject) => {
-      video.onloadedmetadata = () => {
-        video.play().then(resolve).catch(reject)
-      }
-      video.onerror = () => reject(new Error('Failed to play captured video stream.'))
-    })
-
-    // Brief delay to allow initial frame render
-    await new Promise((r) => setTimeout(r, 100))
-
-    const width = video.videoWidth || 1920
-    const height = video.videoHeight || 1080
-
-    const canvas = document.createElement('canvas')
-    canvas.width = width
-    canvas.height = height
-    const ctx = canvas.getContext('2d', { willReadFrequently: true })
-    if (!ctx) {
-      throw new Error('Failed to create canvas context.')
-    }
-
-    ctx.drawImage(video, 0, 0, width, height)
-
-    // Stop all media tracks immediately
-    stream.getTracks().forEach((t) => t.stop())
-    stream = null
-
-    const result = await scanQrFromCanvas(canvas)
-    return result
-  } catch (err: any) {
-    if (stream) {
-      stream.getTracks().forEach((t) => t.stop())
-    }
-    if (err.name === 'NotAllowedError') {
-      return null // User cancelled permission dialog
-    }
-    throw err
+    const blob = await (await fetch(dataUrl)).blob()
+    return await scanQrFromImageBlob(blob)
+  } catch {
+    return null
   }
 }
 

@@ -24,7 +24,7 @@ dist-ssr
 *.sw?
 
 # Agents
-.agent
+.agents
 .impeccable
 DESIGN.md
 PRODUCT.md

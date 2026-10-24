@@ -135,7 +135,9 @@ export function HomeView({
 		{id: "generators", label: "Generators"},
 		{id: "converters", label: "Converters"},
 		{id: "formatters", label: "Formatters"},
+		{id: "design", label: "Design"},
 		{id: "web", label: "Web"},
+		{id: "utilities", label: "Utilities"},
 	]
 
 	return (

@@ -121,13 +121,11 @@ export function EncodeDecodeView() {
 			)
 			setDirection("encode")
 		} else if (type === "url") {
-			setInput(
-				"https://github.com/rasyidly/sidedevtools?tab=readme-ov-file&ref=SideDevTools&version=1.2.0",
-			)
+			setInput("https://example.com")
 			setDirection("encode")
 		} else if (type === "jwt") {
 			setInput(
-				"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InJhc3lpZGx5IiwiZW1haWwiOiJyYXN5aWRAc2VrZWNvLmlkIiwicm9sZSI6ImRldmVsb3BlciIsImV4cCI6MTc4OTEyMzQ1NiwiaWF0IjoxNzE5MjQwMDAwfQ.somerandomsignaturestringfortestingpurpose",
+				"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30",
 			)
 		} else if (type === "html") {
 			setInput(

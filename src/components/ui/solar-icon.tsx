@@ -53,6 +53,7 @@ import {
 	SortByTimeBoldDuotone,
 	DatabaseBoldDuotone,
 	Routing2BoldDuotone,
+	ScannerBoldDuotone,
 } from "solar-icon-set"
 
 export {
@@ -139,6 +140,8 @@ const solarIconRegistry: Record<string, React.ComponentType<any>> = {
 	DocumentText: DocumentTextBoldDuotone,
 	FileText: DocumentTextBoldDuotone,
 	Regex: ChatSquareCodeBoldDuotone,
+	Barcode: ScannerBoldDuotone,
+	FormFiller: ClipboardTextBoldDuotone,
 	Terminal: SidebarCodeBoldDuotone,
 	Search: MagniferOutline,
 	Star: StarBoldDuotone,

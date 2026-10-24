@@ -14,6 +14,8 @@ import {FaviconGeneratorView} from "@/tools/favicon-generator"
 import {MetaOgCheckerView} from "@/tools/meta-og-checker"
 import {HttpRequestConverterView} from "@/tools/http-request-converter"
 import {TabStorageManagerView} from "@/tools/tab-storage-manager"
+import {ColorToolkitView} from "@/tools/color-toolkit"
+import {RegexTesterView} from "@/tools/regex-tester"
 import {VaultView} from "@/views/vault-view"
 import {AboutSupportModal} from "@/components/modals/about-support-modal"
 
@@ -22,6 +24,29 @@ const BackgroundRemoverView = lazy(() =>
 		default: m.BackgroundRemoverView,
 	})),
 )
+
+// The Form Filler pulls in the faker engine and its locales, so it is split out
+// and only downloaded when the user actually opens it.
+const FormFillerView = lazy(() =>
+	import("@/tools/form-filler").then((m) => ({
+		default: m.FormFillerView,
+	})),
+)
+
+const QrBarcodeView = lazy(() =>
+	import("@/tools/qr-barcode").then((m) => ({
+		default: m.QrBarcodeView,
+	})),
+)
+
+function ToolLoading({label}: {label: string}) {
+	return (
+		<div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
+			<div className="w-8 h-8 rounded-full border-2 border-(--p-border) border-t-[#008060] animate-spin mb-2" />
+			<span className="text-xs text-(--p-text-subdued)">Loading {label}...</span>
+		</div>
+	)
+}
 
 export function App() {
 	const [activeToolId, setActiveToolId] = useState<string | null>(null)
@@ -152,6 +177,18 @@ export function App() {
 						)}
 						{activeToolId === "tab-storage-manager" && (
 							<TabStorageManagerView />
+						)}
+						{activeToolId === "color-toolkit" && <ColorToolkitView />}
+						{activeToolId === "regex-tester" && <RegexTesterView />}
+						{activeToolId === "qr-barcode" && (
+							<Suspense fallback={<ToolLoading label="QR & Barcode" />}>
+								<QrBarcodeView />
+							</Suspense>
+						)}
+						{activeToolId === "form-filler" && (
+							<Suspense fallback={<ToolLoading label="Form Filler" />}>
+								<FormFillerView />
+							</Suspense>
 						)}
 						{activeToolId === "vault" && (
 							<VaultView onSelectTool={handleSelectTool} />

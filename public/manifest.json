@@ -1,8 +1,8 @@
 {
 	"manifest_version": 3,
 	"name": "SideDevTools - Privacy-First Developer Companion",
-	"version": "1.2.0",
-	"description": "Offline, privacy-first developer sidebar for Chrome: TOTP 2FA, AI BG remover, AnyDoc, converters, encoders, formatters & vault.",
+	"version": "1.3.0",
+	"description": "Offline, privacy-first dev sidebar: color toolkit, TOTP 2FA, QR & barcode reader, AI BG remover, AnyDoc, regex, form filler & vault.",
 	"author": "rasyidly <rasyid@sekeco.id>",
 	"homepage_url": "https://github.com/rasyidly/sidedevtools",
 	"permissions": [
@@ -42,8 +42,8 @@
 	"commands": {
 		"_execute_action": {
 			"suggested_key": {
-				"default": "Ctrl+Shift+D",
-				"mac": "Command+Shift+D"
+				"default": "Ctrl+Shift+S",
+				"mac": "Command+Shift+S"
 			},
 			"description": "Toggle DevTools Sidebar"
 		}

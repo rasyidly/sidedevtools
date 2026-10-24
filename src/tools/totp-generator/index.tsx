@@ -5,7 +5,6 @@ import {
 	CheckIcon,
 	RefreshIcon,
 	QrCodeIcon,
-	ScreenShareIcon,
 	UploadIcon,
 	ClipboardIcon,
 	TrashIcon,
@@ -19,16 +18,18 @@ import {
 	EyeIcon,
 	EyeOffIcon,
 	ArrowLeftIcon,
+	MaximizeIcon,
 } from "@/components/ui/solar-icon"
 import {Input} from "@/components/ui/input"
 import {Button} from "@/components/ui/button"
 import {Modal} from "@/components/ui/modal"
 import {useToast} from "@/components/ui/toast"
 import {
+	scanQrFromDataUrl,
 	scanQrFromImageBlob,
-	scanQrFromScreenCapture,
 	parseOtpAuthUri,
 } from "@/lib/qr-scanner"
+import {captureRegion} from "@/lib/region-capture"
 
 interface SavedTotpAccount {
 	id: string
@@ -61,7 +62,7 @@ export function TotpGeneratorView() {
 	const [digits, setDigits] = useState<number>(6)
 	const [period, setPeriod] = useState<number>(30)
 	const [showAdvanced, setShowAdvanced] = useState(false)
-	const [isScanningScreen, setIsScanningScreen] = useState(false)
+	const [isCapturing, setIsCapturing] = useState(false)
 	const [isCopied, setIsCopied] = useState(false)
 	const [copiedAccountId, setCopiedAccountId] = useState<string | null>(null)
 	const [now, setNow] = useState(() => Date.now())
@@ -234,23 +235,24 @@ export function TotpGeneratorView() {
 		[showToast],
 	)
 
-	// Screen capture QR scanning
-	const handleCaptureScreen = async () => {
-		setIsScanningScreen(true)
+	// Drag-to-select region capture, then scan the selection for a QR code
+	const handleCaptureRegion = async () => {
+		setIsCapturing(true)
 		try {
-			const result = await scanQrFromScreenCapture()
+			const region = await captureRegion()
+			if (!region) return // user cancelled
+			const result = await scanQrFromDataUrl(region.dataUrl)
 			if (result) {
-				const parsed = parseOtpAuthUri(result)
-				applyParsedData(parsed)
+				applyParsedData(parseOtpAuthUri(result))
 			} else {
-				showToast("No QR code detected in captured screen", "error")
+				showToast("No QR code detected in the selection", "error")
 			}
 		} catch (err: any) {
 			if (err?.message) {
 				showToast(err.message, "error")
 			}
 		} finally {
-			setIsScanningScreen(false)
+			setIsCapturing(false)
 		}
 	}
 
@@ -712,23 +714,20 @@ export function TotpGeneratorView() {
 						</div>
 
 						<div className="grid grid-cols-3 gap-1.5">
-							{/* Screen Capture */}
+							{/* Drag-to-select region capture */}
 							<Button
-								variant="secondary"
 								size="xs"
-								onClick={handleCaptureScreen}
-								disabled={isScanningScreen}
+								onClick={handleCaptureRegion}
+								disabled={isCapturing}
 								className="h-7 text-[11px] justify-center"
-								title="Capture screen, window, or tab with QR code"
+								title="Drag a box over part of the page to capture a QR code"
 							>
-								<ScreenShareIcon
+								<MaximizeIcon
 									size={14}
 									className="text-[#008060] dark:text-[#34d399]"
 								/>
 								<span>
-									{isScanningScreen
-										? "Capturing..."
-										: "Screen"}
+									{isCapturing ? "Capturing..." : "Capture"}
 								</span>
 							</Button>
 

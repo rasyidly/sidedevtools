@@ -2,12 +2,19 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { resolve } from 'path'
+import { cspSafeNdarray } from './scripts/vite-plugin-csp-safe-ndarray.ts'
 
 export default defineConfig({
   plugins: [
+    cspSafeNdarray(),
     tailwindcss(),
     react(),
   ],
+  optimizeDeps: {
+    // Keep @imgly in the normal transform pipeline so the eval-free ndarray
+    // replacement below is also applied when running `vite dev`.
+    exclude: ['@imgly/background-removal'],
+  },
   resolve: {
     alias: {
       '@': resolve(import.meta.dirname, './src'),
